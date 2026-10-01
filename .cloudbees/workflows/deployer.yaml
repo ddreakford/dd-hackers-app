@@ -13,29 +13,29 @@ on:
 
 jobs:
   hackers-api:
-    if: ${{ fromJSON(inputs.manifest)['sn-hackers-api']['hackers-api'].deploy }}
-    uses: shozab-unify-examples/sn-hackers-api/.cloudbees/workflows/deploy.yaml
+    if: ${{ fromJSON(inputs.manifest)['dd-hackers-api']['hackers-api'].deploy }}
+    uses: ddreakford/dd-hackers-api/.cloudbees/workflows/deploy.yaml
     with:
-      artifact-url: ${{ fromJSON(inputs.manifest)['sn-hackers-api']['hackers-api'].url }}
-      artifact-id: ${{ fromJSON(inputs.manifest)['sn-hackers-api']['hackers-api'].id }}
+      artifact-url: ${{ fromJSON(inputs.manifest)['dd-hackers-api']['hackers-api'].url }}
+      artifact-id: ${{ fromJSON(inputs.manifest)['dd-hackers-api']['hackers-api'].id }}
       environment: ${{ inputs.environment }}
     secrets: inherit
     vars: inherit
   hackers-auth:
-    if: ${{ fromJSON(inputs.manifest)['sn-hackers-auth']['hackers-auth'].deploy }}
-    uses: shozab-unify-examples/sn-hackers-auth/.cloudbees/workflows/deploy.yaml
+    if: ${{ fromJSON(inputs.manifest)['dd-hackers-auth']['hackers-auth'].deploy }}
+    uses: ddreakford/dd-hackers-auth/.cloudbees/workflows/deploy.yaml
     with:
-      artifact-url: ${{ fromJSON(inputs.manifest)['sn-hackers-auth']['hackers-auth'].url }}
-      artifact-id: ${{ fromJSON(inputs.manifest)['sn-hackers-auth']['hackers-auth'].id }}
+      artifact-url: ${{ fromJSON(inputs.manifest)['dd-hackers-auth']['hackers-auth'].url }}
+      artifact-id: ${{ fromJSON(inputs.manifest)['dd-hackers-auth']['hackers-auth'].id }}
       environment: ${{ inputs.environment }}
     secrets: inherit
     vars: inherit
   hackers-web:
-    if: ${{ fromJSON(inputs.manifest)['sn-hackers-web']['hackers-web'].deploy }}
-    uses: shozab-unify-examples/sn-hackers-web/.cloudbees/workflows/deploy.yaml
+    if: ${{ fromJSON(inputs.manifest)['dd-hackers-web']['hackers-web'].deploy }}
+    uses: ddreakford/dd-hackers-web/.cloudbees/workflows/deploy.yaml
     with:
-      artifact-url: ${{ fromJSON(inputs.manifest)['sn-hackers-web']['hackers-web'].url }}
-      artifact-id: ${{ fromJSON(inputs.manifest)['sn-hackers-web']['hackers-web'].id }}
+      artifact-url: ${{ fromJSON(inputs.manifest)['dd-hackers-web']['hackers-web'].url }}
+      artifact-id: ${{ fromJSON(inputs.manifest)['dd-hackers-web']['hackers-web'].id }}
       environment: ${{ inputs.environment }}
     secrets: inherit
     vars: inherit
