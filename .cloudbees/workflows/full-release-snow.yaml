@@ -81,17 +81,17 @@ jobs:
         name: Checkout Hackers Web
         id: checkout-hackers-web
         with:
-          repository: shozab-unify-examples/sn-hackers-web
+          repository: ddreakford/dd-hackers-web
       - uses: https://github.com/cloudbees-io/checkout@v1
         name: Checkout Hackers Auth
         id: checkout-hackers-auth
         with:
-          repository: shozab-unify-examples/sn-hackers-auth
+          repository: ddreakford/dd-hackers-auth
       - uses: https://github.com/cloudbees-io/checkout@v1
         name: Checkout Hackers API
         id: checkout-hackers-api
         with:
-          repository: shozab-unify-examples/sn-hackers-api
+          repository: ddreakford/dd-hackers-api
       - name: Format issues as table
         uses: docker://alpine:3.19
         id: format-issues
@@ -762,7 +762,7 @@ jobs:
           format: MARKDOWN
   wait-for-snow-change-request:
     needs: exit-criteria-staging
-    uses: shozab-unify-examples/sn-hackers-app/.cloudbees/workflows/sn-approval.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/sn-approval.yaml
     secrets: inherit
     vars: inherit
   deploy-to-prod:
