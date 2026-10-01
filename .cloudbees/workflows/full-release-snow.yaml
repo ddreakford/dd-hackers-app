@@ -282,12 +282,12 @@ jobs:
     uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
-      environment: DD-QA
+      environment: dd-qa
     secrets: inherit
     vars: inherit
   run-tests-qa:
-    environment: DD-QA
     needs: deploy-to-qa
+    environment: dd-qa
     outputs:
       test-results: ${{ steps.test-execution.outputs.results }}
       test-coverage: ${{ steps.test-execution.outputs.coverage }}
@@ -403,8 +403,8 @@ jobs:
             **QA Test Gate**: PASSED - Ready for staging
           format: MARKDOWN
   exit-criteria-qa:
-    environment: DD-QA
     needs: run-tests-qa
+    environment: dd-qa
     outputs:
       gate-status: ${{ steps.evaluate-criteria.outputs.status }}
       blocking-issues: ${{ steps.check-issues.outputs.blocking-count }}
@@ -519,12 +519,12 @@ jobs:
     uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
-      environment: DD-STAGING
+      environment: dd-staging
     secrets: inherit
     vars: inherit
   run-tests-staging:
-    environment: DD-STAGING
     needs: deploy-to-staging
+    environment: dd-staging
     outputs:
       test-results: ${{ steps.staging-tests.outputs.results }}
       e2e-results: ${{ steps.e2e-tests.outputs.results }}
@@ -641,8 +641,8 @@ jobs:
             **Staging Gate**: PASSED - Ready for production consideration
           format: MARKDOWN
   exit-criteria-staging:
-    environment: DD-STAGING
     needs: run-tests-staging
+    environment: dd-staging
     outputs:
       production-readiness: ${{ steps.readiness-check.outputs.status }}
       risk-assessment: ${{ steps.risk-analysis.outputs.level }}
@@ -770,12 +770,12 @@ jobs:
     uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
-      environment: DD-PROD
+      environment: dd-prod
     secrets: inherit
     vars: inherit
   run-smoke-tests:
-    environment: DD-PROD
     needs: deploy-to-prod
+    environment: dd-prod
     outputs:
       health-status: ${{ steps.health-check.outputs.status }}
       smoke-results: ${{ steps.smoke-tests.outputs.results }}
