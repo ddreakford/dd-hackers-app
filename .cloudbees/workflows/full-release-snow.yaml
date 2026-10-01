@@ -286,7 +286,7 @@ jobs:
     secrets: inherit
     vars: inherit
   run-tests-qa:
-    environment: sn-hackers-qa
+    environment: DD-QA
     needs: deploy-to-qa
     outputs:
       test-results: ${{ steps.test-execution.outputs.results }}
@@ -403,7 +403,7 @@ jobs:
             **QA Test Gate**: PASSED - Ready for staging
           format: MARKDOWN
   exit-criteria-qa:
-    environment: sn-hackers-qa
+    environment: DD-QA
     needs: run-tests-qa
     outputs:
       gate-status: ${{ steps.evaluate-criteria.outputs.status }}
@@ -523,7 +523,7 @@ jobs:
     secrets: inherit
     vars: inherit
   run-tests-staging:
-    environment: sn-hackers-staging
+    environment: DD-STAGING
     needs: deploy-to-staging
     outputs:
       test-results: ${{ steps.staging-tests.outputs.results }}
@@ -641,7 +641,7 @@ jobs:
             **Staging Gate**: PASSED - Ready for production consideration
           format: MARKDOWN
   exit-criteria-staging:
-    environment: sn-hackers-staging
+    environment: DD-STAGING
     needs: run-tests-staging
     outputs:
       production-readiness: ${{ steps.readiness-check.outputs.status }}
@@ -774,7 +774,7 @@ jobs:
     secrets: inherit
     vars: inherit
   run-smoke-tests:
-    environment: sn-hackers-prod
+    environment: DD-PROD
     needs: deploy-to-prod
     outputs:
       health-status: ${{ steps.health-check.outputs.status }}
