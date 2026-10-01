@@ -279,10 +279,10 @@ jobs:
     delegates: cloudbees-io/manual-approval/custom-job.yml@v1
   deploy-to-qa:
     needs: approval
-    uses: shozab-unify-examples/sn-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
-      environment: sn-hackers-qa
+      environment: DD-QA
     secrets: inherit
     vars: inherit
   run-tests-qa:
@@ -516,10 +516,10 @@ jobs:
       notifyAllEligibleUsers: false
   deploy-to-staging:
     needs: release-manager-approval
-    uses: shozab-unify-examples/sn-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
-      environment: sn-hackers-staging
+      environment: DD-STAGING
     secrets: inherit
     vars: inherit
   run-tests-staging:
@@ -767,10 +767,10 @@ jobs:
     vars: inherit
   deploy-to-prod:
     needs: wait-for-snow-change-request
-    uses: shozab-unify-examples/sn-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
-      environment: sn-hackers-prod
+      environment: DD-PROD
     secrets: inherit
     vars: inherit
   run-smoke-tests:
