@@ -79,9 +79,8 @@ jobs:
           cr-number: ${{ fromJSON(steps.create-cr.outputs.servicenow-output).number }}
           poll-interval: 1
           poll-duration: 10
-          state-field-value: Review
-          approval-field-value-approved: Approved
-          approval-field-value-rejected: Rejected
+          approval-field-value-approved: approved
+          approval-field-value-rejected: rejected
 
       - id: close-cr
         name: Trigger Servicenow Update Closed state
