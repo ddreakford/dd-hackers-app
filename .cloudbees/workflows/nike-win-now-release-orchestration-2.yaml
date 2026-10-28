@@ -125,14 +125,12 @@ jobs:
         run: |
           apk add --no-cache jq
 
-          echo 'release-table<<EOF' >> $CLOUDBEES_OUTPUTS/release-table
           echo '| Component | Owner | Status | Dependency |' >> $CLOUDBEES_OUTPUTS/release-table
           echo '|-----------|-------|--------|------------|' >> $CLOUDBEES_OUTPUTS/release-table
           echo '| SNKRS Mobile Experience | Digital Team | Ready | Inventory API |' >> $CLOUDBEES_OUTPUTS/release-table
           echo '| Inventory API | Platform Team | Ready | SAP S/4 Inventory Unlock |' >> $CLOUDBEES_OUTPUTS/release-table
           echo '| SAP S/4 Inventory | SAP Application Engineering | Pending | CHaRM Transport |' >> $CLOUDBEES_OUTPUTS/release-table
           echo '| Warehouse Fulfillment | Enterprise Systems | Ready | Inventory Availability |' >> $CLOUDBEES_OUTPUTS/release-table
-          echo 'EOF' >> $CLOUDBEES_OUTPUTS/release-table
       - name: Publish release evidence
         uses: cloudbees-io/publish-evidence-item@v1
         with:

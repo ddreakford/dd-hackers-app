@@ -100,7 +100,6 @@ jobs:
           apk add --no-cache jq
 
           # Create markdown table from JSON
-          echo 'issues-table<<EOF' >> $CLOUDBEES_OUTPUTS/issues-table
           echo '| Key | Summary | Status | Priority |' >> $CLOUDBEES_OUTPUTS/issues-table
           echo '|-----|---------|--------|----------|' >> $CLOUDBEES_OUTPUTS/issues-table
 
@@ -108,7 +107,6 @@ jobs:
           echo '${{ steps.get-issues.outputs.issues }}' | jq -r '.[] |
             "| " + .key + " | " + .fields.summary + " | " + .fields.status.name + " | " + .fields.priority.name + " |"' >> $CLOUDBEES_OUTPUTS/issues-table
 
-          echo 'EOF' >> $CLOUDBEES_OUTPUTS/issues-table
       - name: Report evidence
         uses: cloudbees-io/publish-evidence-item@v1
         with:
