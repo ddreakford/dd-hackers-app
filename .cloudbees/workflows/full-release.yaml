@@ -91,21 +91,21 @@ jobs:
           jql: project = "UDEMO" AND status != "Done" ORDER BY created DESC
           fields: summary,status,assignee,created
           max-results: "20"
-      - uses: https://github.com/cloudbees-io/checkout@v1
+      - uses: https://github.com/cloudbees-io/checkout@v2
         name: Checkout Hackers Web
         id: checkout-hackers-web
         with:
-          repository: cb-golden-demo-org/sd-hackers-web
-      - uses: https://github.com/cloudbees-io/checkout@v1
+          repository: https://github.com/ddreakford/dd-hackers-web
+      - uses: https://github.com/cloudbees-io/checkout@v2
         name: Checkout Hackers Auth
         id: checkout-hackers-auth
         with:
-          repository: cb-golden-demo-org/sd-hackers-auth
-      - uses: https://github.com/cloudbees-io/checkout@v1
+          repository: https://github.com/ddreakford/dd-hackers-auth
+      - uses: https://github.com/cloudbees-io/checkout@v2
         name: Checkout Hackers API
         id: checkout-hackers-api
         with:
-          repository: cb-golden-demo-org/sd-hackers-api
+          repository: https://github.com/ddreakford/dd-hackers-api
       - name: Format issues as table
         uses: docker://alpine:3.19
         id: format-issues
@@ -145,9 +145,9 @@ jobs:
             ${{ steps.format-issues.outputs.issues-table }}
 
             ## Repositories
-            ${{ steps.checkout-hackers-web.outputs.commit-url}}
-            ${{ steps.checkout-hackers-auth.outputs.commit-url}}
-            ${{ steps.checkout-hackers-api.outputs.commit-url}}
+            ${{ steps.checkout-hackers-web.outputs.repository-url }}/commit/${{ steps.checkout-hackers-web.outputs.commit }}
+            ${{ steps.checkout-hackers-auth.outputs.repository-url }}/commit/${{ steps.checkout-hackers-auth.outputs.commit }}
+            ${{ steps.checkout-hackers-api.outputs.repository-url }}/commit/${{ steps.checkout-hackers-api.outputs.commit }}
           format: MARKDOWN
   quality-checks:
     needs:
@@ -318,7 +318,7 @@ jobs:
   deploy-to-qa:
     needs:
       - approval
-    uses: cb-golden-demo-org/sd-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
       environment: sd-hackers-qa
@@ -652,7 +652,7 @@ jobs:
   deploy-to-staging:
     needs:
       - release-manager-approval
-    uses: cb-golden-demo-org/sd-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
       environment: sd-hackers-staging
@@ -1015,7 +1015,7 @@ jobs:
   deploy-to-prod:
     needs:
       - wait-for-snow-change-request
-    uses: cb-golden-demo-org/sd-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
       environment: sd-hackers-prod

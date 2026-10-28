@@ -112,15 +112,15 @@ jobs:
           fields: summary,status,assignee,priority,created
           max-results: "20"
       - name: Checkout digital components
-        uses: https://github.com/cloudbees-io/checkout@v1
+        uses: https://github.com/cloudbees-io/checkout@v2
         id: checkout-snkrs-web
         with:
-          repository: cb-golden-demo-org/sd-hackers-web
+          repository: https://github.com/ddreakford/dd-hackers-web
       - name: Checkout API components
-        uses: https://github.com/cloudbees-io/checkout@v1
+        uses: https://github.com/cloudbees-io/checkout@v2
         id: checkout-inventory-api
         with:
-          repository: cb-golden-demo-org/sd-hackers-api
+          repository: https://github.com/ddreakford/dd-hackers-api
       - name: Format release plan
         id: format-release-plan
         uses: docker://alpine:3.20
@@ -150,8 +150,8 @@ jobs:
             ${{ steps.format-release-plan.outputs.release-table }}
 
             ## Source Evidence
-            - SNKRS Web Commit: ${{ steps.checkout-snkrs-web.outputs.commit-url }}
-            - Inventory API Commit: ${{ steps.checkout-inventory-api.outputs.commit-url }}
+            - SNKRS Web Commit: ${{ steps.checkout-snkrs-web.outputs.repository-url }}/commit/${{ steps.checkout-snkrs-web.outputs.commit }}
+            - Inventory API Commit: ${{ steps.checkout-inventory-api.outputs.repository-url }}/commit/${{ steps.checkout-inventory-api.outputs.commit }}
   quality-and-security-checks:
     needs:
       - gather-release-evidence
@@ -360,7 +360,7 @@ jobs:
   deploy-snkrs-to-qa:
     needs:
       - confirm-sap-inventory-unlock
-    uses: cb-golden-demo-org/sd-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
       environment: sd-hackers-qa
@@ -450,7 +450,7 @@ jobs:
   deploy-to-staging:
     needs:
       - qa-exit-criteria
-    uses: cb-golden-demo-org/sd-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
       environment: sd-hackers-staging
@@ -532,13 +532,13 @@ jobs:
   wait-for-enterprise-change-approval:
     needs:
       - production-readiness-review
-    uses: cb-golden-demo-org/sd-hackers-app/.cloudbees/workflows/sn-approval.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/sn-approval.yaml
     secrets: inherit
     vars: inherit
   deploy-to-prod:
     needs:
       - wait-for-enterprise-change-approval
-    uses: cb-golden-demo-org/sd-hackers-app/.cloudbees/workflows/deployer.yaml
+    uses: ddreakford/dd-hackers-app/.cloudbees/workflows/deployer.yaml
     with:
       manifest: ${{ inputs.manifest }}
       environment: sd-hackers-prod
